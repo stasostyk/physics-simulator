@@ -12,7 +12,8 @@ public class Window extends JPanel
                   implements ActionListener, MouseListener
 {
   private int time;
-  private ArrayList<PhysicsObject> objects = new ArrayList<PhysicsObject>();
+  private KinematicProcessor kine = new KinematicProcessor();
+
 
   public Window()
   {
@@ -25,23 +26,15 @@ public class Window extends JPanel
   public void paintComponent(Graphics g)
   {
     setBackground(Color.WHITE);
-    g.setColor(Color.BLACK);
-
     super.paintComponent(g);
 
-    for (int i = 0; i < objects.size(); i++)
-      g.fillOval(objects.get(i).x-10, objects.get(i).y-10, 20, 20);
-
+    kine.draw(g);
   }
 
   public void actionPerformed(ActionEvent e)
   {
     time++;
-    for (int i = 0; i < objects.size(); i++)
-    {
-      objects.get(i).update();
-      objects.get(i).checkCollisions(objects);
-    }
+    kine.update();
 
     repaint();
   }
@@ -62,20 +55,13 @@ public class Window extends JPanel
   @Override
   public void mousePressed(MouseEvent e)
   {
-    objects.add(new PhysicsObject(e.getX(), e.getY()));
+    kine.mousePressed(e);
   }
 
   @Override
   public void mouseReleased(MouseEvent e)
   {
-    PhysicsObject obj = objects.get(objects.size()-1);
-    if (obj.isDragging && (obj.x != e.getX() || obj.y != e.getY()))
-    {
-      double xDrag = e.getX() - obj.x;
-      double yDrag = obj.y - e.getY();
-      obj.setInitialVelocity(xDrag, yDrag);
-    }
-    obj.isDragging = false;
+    kine.mouseReleased(e);
   }
 
 }
