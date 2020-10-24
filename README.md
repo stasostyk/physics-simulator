@@ -1,4 +1,4 @@
-# 2D-Kinematics-Simulator
+# Physics Simulator
 A physics simulator, with various modes to play around with. This project serves as a method for me to apply and revise my knowledge from IB Physics HL.
 
 ## Kinematics Mode
