@@ -9,11 +9,16 @@ public class Main
     w.setSize(500, 500);
 
     Container c = w.getContentPane();
-    c.add(new Window());
+    Window win = new Window();
+    c.add(win);
+
+    w.addKeyListener(win);
+    w.addMouseListener(win);
 
     w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     w.setResizable(false);
     w.setVisible(true);
     w.setLocationRelativeTo(null);
+    w.setFocusable(true);
   }
 }
