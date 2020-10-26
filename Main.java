@@ -3,9 +3,10 @@ import javax.swing.JFrame;
 
 public class Main
 {
+  public static JFrame w;
   public static void main(String[] args)
   {
-    JFrame w = new JFrame("Physics Simulator");
+    w = new JFrame("Physics Simulator");
     w.setSize(500, 500);
 
     Container c = w.getContentPane();

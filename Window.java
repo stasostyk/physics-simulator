@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.awt.MouseInfo;
+import java.awt.Point;
 
 public class Window extends JPanel
                   implements ActionListener, MouseListener, KeyListener
@@ -59,10 +61,13 @@ public class Window extends JPanel
   {
     time++;
 
+    Point p = MouseInfo.getPointerInfo().getLocation();
+
+
     switch (mode)
     {
       case (1):
-        kine.update();
+        kine.update(p.x - Main.w.getLocation().x, p.y - Main.w.getLocation().y-15);
     }
 
     repaint();
@@ -71,6 +76,7 @@ public class Window extends JPanel
   @Override
   public void mouseClicked(MouseEvent e)
   {
+    kine.mouseClicked(e.getX(), e.getY()-15);
   }
 
   @Override
@@ -88,7 +94,7 @@ public class Window extends JPanel
     switch (mode)
     {
       case (1):
-        kine.mousePressed(e);
+        kine.mousePressed(e.getX(), e.getY()-15);
     }
   }
 
@@ -98,7 +104,7 @@ public class Window extends JPanel
     switch (mode)
     {
       case (1):
-        kine.mouseReleased(e);
+        kine.mouseReleased(e.getX(), e.getY()-15);
     }
   }
 
