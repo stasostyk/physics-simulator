@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class KinematicObject
 {
-  private static double g = -1;
+  public static double g = -1;
   public int x, y = 0;
   public double iniV, angl = 0; // angle is meassured North of East (from the horizontal)
   public boolean isDragging;
 
-  public double xVel, yVel = 0;
+  public int xVel, yVel = 0;
 
   public double bounciness = 2;
   private int R = 10; // radius
@@ -67,8 +67,8 @@ public class KinematicObject
     angl = Math.abs(360-angl); // sets it counter clockwise
     iniV = Math.hypot(xDrag, yDrag); // sets resultant vector
 
-    xVel = -xDrag/10;
-    yVel = yDrag/10;
+    xVel = (int)(-xDrag/10);
+    yVel = (int)(yDrag/10);
 
   }
 
