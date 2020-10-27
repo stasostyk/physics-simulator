@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.SwingUtilities;
 import java.util.ArrayList;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -21,7 +22,13 @@ public class Window extends JPanel
 
   private KinematicProcessor kine = new KinematicProcessor();
 
-  private int mode = 0; // 0 = menu, 1 = kinematics
+  private DynamicProcessor dyna = new DynamicProcessor(this); // pass this to allow use of JSlider
+
+  private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics
+
+  public static int w, h = 500; // default
+
+  public static int x, y = 0; // default
 
   public Window()
   {
@@ -43,14 +50,22 @@ public class Window extends JPanel
         g.drawString("Which mode?", 180, 100);
         g.setColor(Color.GRAY);
         g.fillRect(140,110,200,30);
+        g.fillRect(140,130,200,30);
         g.setColor(Color.BLACK);
         g.drawString("For kinematics, press 1", 150, 130);
+        g.drawString("For dynamics, press 2", 150, 150);
         break;
       }
 
       case (1):
       {
         kine.draw(g);
+        break;
+      }
+
+      case (2):
+      {
+        dyna.draw(g);
         break;
       }
     }
@@ -61,13 +76,27 @@ public class Window extends JPanel
   {
     time++;
 
+    this.w = (int) Main.w.getContentPane().getSize().getWidth();
+    this.h = (int) Main.w.getContentPane().getSize().getHeight();
+
     Point p = MouseInfo.getPointerInfo().getLocation();
+    SwingUtilities.convertPointFromScreen(p, this);
+    this.x = p.x;
+    this.y = p.y;
 
 
     switch (mode)
     {
       case (1):
-        kine.update(p.x - Main.w.getLocation().x, p.y - Main.w.getLocation().y-15);
+      {
+        kine.update();
+        break;
+      }
+      case (2):
+      {
+        dyna.update();
+        break;
+      }
     }
 
     repaint();
@@ -76,7 +105,14 @@ public class Window extends JPanel
   @Override
   public void mouseClicked(MouseEvent e)
   {
-    kine.mouseClicked(e.getX(), e.getY()-15);
+    switch (mode)
+    {
+      case(1):
+      {
+        kine.mouseClicked();
+        break;
+      }
+    }
   }
 
   @Override
@@ -94,7 +130,7 @@ public class Window extends JPanel
     switch (mode)
     {
       case (1):
-        kine.mousePressed(e.getX(), e.getY()-15);
+        kine.mousePressed();
     }
   }
 
@@ -104,7 +140,7 @@ public class Window extends JPanel
     switch (mode)
     {
       case (1):
-        kine.mouseReleased(e.getX(), e.getY()-15);
+        kine.mouseReleased();
     }
   }
 
@@ -116,6 +152,7 @@ public class Window extends JPanel
       case (0):
       {
         if (e.getKeyCode() == e.VK_1) this.mode = 1;
+        else if (e.getKeyCode() == e.VK_2) this.mode = 2;
       }
     }
   }
