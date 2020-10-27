@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.awt.Point;
 
 public class KinematicProcessor
 {
@@ -14,8 +15,19 @@ public class KinematicProcessor
   private int mouseX = 0;
   private int mouseY = 0;
 
+  private ArrayList<Point> trail = new ArrayList<Point>(); // ball trail
+  private int time_elapsed = 5; // every how much does it plot a point
+  private int points = 15; // how many plotted points
+
   public void draw(Graphics g)
   {
+    g.setColor(Color.BLUE);
+    for (int i = 0; i < trail.size(); i++)
+    {
+      g.fillOval(trail.get(i).x, trail.get(i).y, 10,10);
+      // System.out.println("drawn");
+    }
+
     g.setColor(Color.BLACK);
     for (int i = 0; i < objects.size(); i++)
       g.fillOval(objects.get(i).x-10, objects.get(i).y-10, 20, 20);
@@ -31,10 +43,30 @@ public class KinematicProcessor
     }
   }
 
-  public void update(int mouseX, int mouseY)
+  public void update()
   {
-    this.mouseX = mouseX;
-    this.mouseY = mouseY;
+    this.mouseX = Window.x;
+    this.mouseY = Window.y;
+    // System.out.println(Main.w.getContentPane().getSize());
+
+    if (objects.size()>0)
+    {
+      int ID = objects.size()-1;
+
+      time_elapsed--;
+      // System.out.println(time_elapsed);
+      if (time_elapsed == 0)
+      {
+        if (trail.size() == points)
+        {
+          trail.remove(0);
+          trail.add(new Point(objects.get(ID).x, objects.get(ID).y));
+        }
+        else
+          trail.add(new Point(objects.get(ID).x, objects.get(ID).y));
+        time_elapsed = 5;
+      }
+    }
 
     for (int i = 0; i < objects.size(); i++)
     {
@@ -43,23 +75,24 @@ public class KinematicProcessor
     }
   }
 
-  public void mouseClicked(int x, int y)
+  public void mouseClicked()
   {
     objects.get(objects.size()-1).isDragging = false;
   }
 
-  public void mousePressed(int x, int y)
+  public void mousePressed()
   {
-    objects.add(new KinematicObject(x, y));
+    objects.add(new KinematicObject(Window.x, Window.y));
+    trail = new ArrayList<Point>();
   }
 
-  public void mouseReleased(int x, int y)
+  public void mouseReleased()
   {
     KinematicObject obj = objects.get(objects.size()-1);
-    if (obj.isDragging && (obj.x != x || obj.y != y))
+    if (obj.isDragging && (obj.x != Window.x || obj.y != Window.y))
     {
-      double xDrag = x - obj.x;
-      double yDrag = obj.y - y;
+      double xDrag = Window.x - obj.x;
+      double yDrag = obj.y - Window.y;
       obj.isDragging = false;
       obj.setInitialVelocity(xDrag, yDrag);
     }

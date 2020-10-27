@@ -10,6 +10,7 @@ public class KinematicObject
   public double xVel, yVel = 0;
 
   public double bounciness = 2;
+  private int R = 10; // radius
 
   KinematicObject(int x, int y)
   {
@@ -20,21 +21,26 @@ public class KinematicObject
 
   public void update() // assumes one second has passed
   {
-    if (!isDragging && y<455-yVel)
+    int w = Window.w;
+    int h = Window.h;
+    if (!isDragging && y<h-R-yVel)
     {
       yVel-=g;
-      // System.out.println(angl);
     }
+    // System.out.println(yVel);
 
-    if (x <= 10-xVel || x >= 490-xVel)
+    // if (yVel == 0) xVel = 0;
+
+    if (x <= R || x >= w-R)
     {
-      if (xVel < 0) xVel += bounciness;
-      else if (xVel > 0) xVel -= bounciness;
+      // System.out.println(".");
+      // if (xVel < 0) xVel += bounciness;
+      // else if (xVel > 0) xVel -= bounciness;
 
       xVel = -xVel;
     }
 
-    if (y <= 0-yVel || y >= 455-yVel)
+    if (y <= R-yVel || y >= h-R-yVel)
     {
       if (yVel < 0) yVel += bounciness;
       else if (yVel > 0) yVel -= bounciness;
@@ -75,7 +81,7 @@ public class KinematicObject
       if (obj.x == x && obj.y == y)
         continue;
 
-      if (x - 23 < obj.x && obj.x < x + 23 && y - 23 < obj.y && obj.y < y + 23)
+      if (x - 2*R < obj.x && obj.x < x + 2*R && y - 2*R < obj.y && obj.y < y + 2*R)
       {
         if (xVel < 0) xVel += bounciness;
         else if (xVel > 0) xVel -= bounciness;
