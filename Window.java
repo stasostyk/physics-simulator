@@ -47,13 +47,13 @@ public class Window extends JPanel
     {
       case (0):
       {
-        g.drawString("Which mode?", 180, 100);
+        g.drawString("Which mode?", (w/2)-50, (h/4));
         g.setColor(Color.GRAY);
-        g.fillRect(140,110,200,30);
-        g.fillRect(140,130,200,30);
+        g.fillRect((w/2)-100,(h/2)-50,200,30);
+        g.fillRect((w/2)-100,(h/2)-10,200,30);
         g.setColor(Color.BLACK);
-        g.drawString("For kinematics, press 1", 150, 130);
-        g.drawString("For dynamics, press 2", 150, 150);
+        g.drawString("For kinematics, press 1", (w/2)-90, (h/2)-30);
+        g.drawString("For dynamics, press 2", (w/2)-90, (h/2)+10);
         break;
       }
 
