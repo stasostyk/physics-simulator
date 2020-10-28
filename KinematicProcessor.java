@@ -56,6 +56,8 @@ public class KinematicProcessor
       g.setColor(Color.GREEN);
       g.drawString("Vi", 2*obj.x-mouseX+5, 2*obj.y-mouseY);
       g.drawLine(obj.x, obj.y, 2*obj.x-mouseX, 2*obj.y-mouseY);
+      g.setColor(Color.RED);
+      g.drawString("Vit+0.5at^2", 2*obj.x-mouseX+25, 2*obj.y-mouseY-25);
     }
   }
 
