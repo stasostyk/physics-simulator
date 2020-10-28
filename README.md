@@ -3,6 +3,7 @@ A physics simulator, with various modes to play around with. This project serves
 
 ## Kinematics Mode
 From my physics unit on kinematics in two dimensions, the mode simulates bouncing balls affected by everyday forces, neglecting air resistance.
+
 ![Kinematics Demo](images/kinematics_demo.png?raw=true "Kinematics Demo")
 * Click your mouse to spawn a ball
 * To give it an initial velocity, when you click your mouse, drag it in a direction. The magnitude of your mouse displacement, alongside the angle will give the ball component vectors.
