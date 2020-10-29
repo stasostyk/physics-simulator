@@ -4,9 +4,11 @@ public class DynamicObject
   public double mass, angle, muS, muK; // mass, angle, static coefficient of friction, kinetic coefficient of friction
   public double Fapp, Fnorm, Fgrav, Ffric; // applied, normal, gravitational, and friction force
   public double vel, accel;
+  public int x, y = 0;
 
+  private DynamicProcessor proc;
 
-  public DynamicObject(double m, double a, double muS, double muK, double Fapp)
+  public DynamicObject(DynamicProcessor proc, double m, double a, double muS, double muK, double Fapp)
   {
     this.mass = m;
     this.angle = Math.toRadians(a);
@@ -14,6 +16,8 @@ public class DynamicObject
     this.muK = muK;
     this.Fapp = Fapp;
     this.vel = 0;
+
+    this.proc = proc;
 
     System.out.println("mass = " + mass + ", angle = " + angle);
 
@@ -67,6 +71,21 @@ public class DynamicObject
     this.Ffric = getFriction();
 
     this.accel = getAccel();
+  }
+
+  public void updateAngle(double angle)
+  {
+    this.angle = angle;
+
+    this.Fnorm = getFnorm();
+    this.Ffric = getFriction();
+    this.accel = getAccel();
+  }
+
+  public void move()
+  {
+    this.x += vel * Math.sin(angle);
+    this.y += vel * Math.cos(angle);
   }
 
   public String toString()

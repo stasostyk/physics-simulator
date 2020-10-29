@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.KeyListener;
@@ -152,7 +153,16 @@ public class Window extends JPanel
       case (0):
       {
         if (e.getKeyCode() == e.VK_1) this.mode = 1;
-        else if (e.getKeyCode() == e.VK_2) this.mode = 2;
+        else if (e.getKeyCode() == e.VK_2)
+        {
+          this.mode = 2;
+          for (int i = 0; i < dyna.sliders.length; i++)
+          {
+            this.add(dyna.sliders[i].getSlider());
+            // dyna.sliders[i].getSlider().setBounds(100,100,200,200);
+          }
+          this.updateUI();
+        }
       }
     }
   }
