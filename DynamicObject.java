@@ -1,10 +1,12 @@
 public class DynamicObject
 {
-  public static double g = 9.81;
+  public static double g = 2;
   public double mass, angle, muS, muK; // mass, angle, static coefficient of friction, kinetic coefficient of friction
   public double Fapp, Fnorm, Fgrav, Ffric; // applied, normal, gravitational, and friction force
   public double vel, accel;
   public int x, y = 0;
+
+  public boolean isDragging = false;
 
   private DynamicProcessor proc;
 
@@ -53,12 +55,22 @@ public class DynamicObject
 
   public double getAccel()
   {
-    return (Fapp + Fgrav*Math.sin(angle) - Ffric) / mass;   // Fnet = m * a
+    if (Fgrav*Math.sin(angle) + Fapp <= muS * Fnorm) return 0;
+    return (Fapp + Fgrav*Math.sin(angle) + Ffric) / mass;   // Fnet = m * a
   }
 
   public void update()
   {
-    vel += accel;
+    this.Ffric = getFriction();
+    vel += 0.5*accel;
+    move();
+    // System.out.println(accel);
+  }
+
+  public void updateFapp(double newFapp)
+  {
+    this.Fapp = newFapp;
+    this.accel = getAccel();
   }
 
   public void updateMass(double newMass)
@@ -84,8 +96,8 @@ public class DynamicObject
 
   public void move()
   {
-    this.x += vel * Math.sin(angle);
-    this.y += vel * Math.cos(angle);
+    this.x += 0.01 * vel * Math.sin(angle);
+    this.y += 0.01 * vel * Math.cos(angle);
   }
 
   public String toString()

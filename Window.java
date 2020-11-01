@@ -77,8 +77,7 @@ public class Window extends JPanel
   {
     time++;
 
-    this.w = (int) Main.w.getContentPane().getSize().getWidth();
-    this.h = (int) Main.w.getContentPane().getSize().getHeight();
+    // Main.w.pack();
 
     Point p = MouseInfo.getPointerInfo().getLocation();
     SwingUtilities.convertPointFromScreen(p, this);
@@ -101,6 +100,9 @@ public class Window extends JPanel
     }
 
     repaint();
+    this.w = (int) Main.w.getContentPane().getSize().getWidth();
+    this.h = (int) Main.w.getContentPane().getSize().getHeight();
+    // System.out.println(this.w);
   }
 
   @Override
@@ -131,7 +133,15 @@ public class Window extends JPanel
     switch (mode)
     {
       case (1):
+      {
         kine.mousePressed();
+        break;
+      }
+      case (2):
+      {
+        dyna.mousePressed();
+        break;
+      }
     }
   }
 
@@ -141,7 +151,15 @@ public class Window extends JPanel
     switch (mode)
     {
       case (1):
+      {
         kine.mouseReleased();
+        break;
+      }
+      case (2):
+      {
+        dyna.mouseReleased();
+        break;
+      }
     }
   }
 
@@ -155,11 +173,11 @@ public class Window extends JPanel
         if (e.getKeyCode() == e.VK_1) this.mode = 1;
         else if (e.getKeyCode() == e.VK_2)
         {
+          dyna.setup();
           this.mode = 2;
           for (int i = 0; i < dyna.sliders.length; i++)
           {
             this.add(dyna.sliders[i].getSlider());
-            // dyna.sliders[i].getSlider().setBounds(100,100,200,200);
           }
           this.updateUI();
         }
