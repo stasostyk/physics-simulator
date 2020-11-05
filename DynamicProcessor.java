@@ -35,22 +35,19 @@ public class DynamicProcessor
   public DynamicProcessor(Window win)
   {
     this.win = win;
-    obj = new DynamicObject(this, 10,25,0.5,0.4,0); // processor, mass, angle, muS, muK, Fapp
+    obj = new DynamicObject(10,25,0.5,0.4,0); // mass, angle, muS, muK, Fapp
 
     sliders = new Slider[] {new Slider(1, 40, 10), new Slider(5,45,25), new Slider(-300,300,0)};
-    sliders[1].value = 25;
     sliders[0].value = 10;
+    sliders[1].value = 25;
     sliders[2].value = 0;
   }
 
   public void setIncline()
   {
     // adj * tan (angle) = opp
-    // Right now, its limited between ]0,45] degrees.
-    // To give compatability for ]45,90[, change origin and move second coords
     this.x = 0;
     this.y = Window.h - (int) (Window.w * Math.tan(obj.angle));
-    // System.out.println(Window.w);
   }
 
   public void draw(Graphics g)
@@ -63,9 +60,9 @@ public class DynamicProcessor
     g.fillPolygon(new int[] {x, x, Window.w}, new int[] {y, Window.h, Window.h}, 3); // inclined plain
 
     g.setColor(Color.BLACK);
-    g.drawString("Mass = " + sliders[0].value, Window.w/2-150,20);
-    g.drawString("Angle = " + sliders[1].value, Window.w/2-150,40);
-    g.drawString("F app = " + sliders[2].value, Window.w/2-150,60);
+    g.drawString("Mass = " + sliders[0].value + " kg", Window.w/2-150,20);
+    g.drawString("Angle = " + sliders[1].value + " deg", Window.w/2-150,40);
+    g.drawString("F app = " + sliders[2].value + " N", Window.w/2-150,60);
 
     if (obj.isDragging)
     {
@@ -74,47 +71,55 @@ public class DynamicProcessor
       Graphics2D g2 = (Graphics2D) g;
       g2.setStroke(new BasicStroke(3));
       g2.draw(rotateRectangle(Window.x, findPoint(Window.x)-10, 50, 20, obj.angle));
-
     }
     else
     {
-      // System.out.println(obj.vel);
-
-
-
+      // Fnorm line coords
+      int xPos, yPos;
+      xPos = obj.x + (int)(obj.Fnorm * Math.sin(obj.angle));
+      yPos = obj.y - 10 - (int)(obj.Fnorm * Math.cos(obj.angle));
 
       g.setColor(Color.BLACK);
-      int originX = (Window.w/2) - 20;
-      int originY = findPoint(originX);
-      // g.fillPolygon(new int[] {originX, originX+10, originX+40, originX+50}, new int[] {}, 4);
+
+      String acc = String.format("%.3f", obj.accel); // rounding to three decimal points
+      g.drawString("a = " + acc + " m/s^2", xPos+10, obj.y-130);
+
+      String vel = String.format("%.1f", obj.vel);
+      g.drawString("v = " + vel + " m/s", xPos+10, obj.y-110);
+
       Graphics2D g2 = (Graphics2D) g;
       g2.setStroke(new BasicStroke(3));
       g2.draw(rotateRectangle(obj.x, obj.y-10, 50, 20, obj.angle));
-      // g.fillOval(Window.w/2-30, findPoint(Window.w/2-30)-20, 30, 30);
-
-      g.drawString("Fn = " + (int) obj.Fnorm, obj.x + (int)(obj.Fnorm * Math.sin(obj.angle)), obj.y - 10 - (int)(obj.Fnorm * Math.cos(obj.angle)));
-      g.drawString("Fg = " + (int) obj.Fgrav, obj.x+5, obj.y+30);
-      g.drawString("F = " + (int) obj.Fapp, obj.x + (int)(obj.Fapp * Math.cos(obj.angle)), obj.y - 10 + (int)(obj.Fapp * Math.sin(obj.angle)));
-      g.drawString("f = " + (int) obj.Ffric, obj.x - (int)(obj.Ffric * Math.cos(obj.angle)) - 30, obj.y - 10 - (int)(obj.Ffric * Math.sin(obj.angle)));
-
 
       g.setColor(Color.BLUE);
+
       // Fnorm line
-      g.drawLine(obj.x, obj.y - 10, obj.x + (int)(obj.Fnorm * Math.sin(obj.angle)), obj.y- 10 - (int)(obj.Fnorm * Math.cos(obj.angle)));
+      g.drawString("Fn = " + (int) obj.Fnorm, xPos, yPos);
+      g.drawLine(obj.x, obj.y - 10, xPos, yPos);
+
       // Fgrav line
-      g.drawLine(obj.x, obj.y - 10, obj.x, obj.y - 10 + (int)(obj.Fgrav));
+      xPos = obj.x;
+      yPos = obj.y - 10 + (int)(obj.Fgrav);
+      g.drawString("Fg = -" + (int) obj.Fgrav, obj.x+5, obj.y+30);
+      g.drawLine(obj.x, obj.y - 10, xPos, yPos);
+
       // Fapp line
-      g.drawLine(obj.x, obj.y - 10, obj.x + (int)(obj.Fapp * Math.cos(obj.angle)), obj.y - 10 + (int)(obj.Fapp * Math.sin(obj.angle)));
+      xPos = obj.x + (int)(obj.Fapp * Math.cos(obj.angle));
+      yPos = obj.y - 10 + (int)(obj.Fapp * Math.sin(obj.angle));
+      g.drawString("F = " + (int) obj.Fapp, xPos, yPos);
+      g.drawLine(obj.x, obj.y - 10, xPos, yPos);
+
       // Ffric line
-      g.drawLine(obj.x, obj.y - 10, obj.x - (int)(obj.Ffric * Math.cos(obj.angle)), obj.y - 10 - (int)(obj.Ffric * Math.sin(obj.angle)));
+      xPos = obj.x + (int)(obj.Ffric * Math.cos(obj.angle));
+      yPos = obj.y - 10 + (int)(obj.Ffric * Math.sin(obj.angle));
+      g.drawString("f = " + (int) obj.Ffric, xPos, yPos);
+      g.drawLine(obj.x, obj.y - 10, xPos, yPos);
 
     }
   }
 
   public Shape rotateRectangle(int x, int y, int width, int height, double theta)
   {
-    // theta = Math.toRadians(theta);
-
     Rectangle2D rect = new Rectangle2D.Double(-width/2., -height/2., width, height);
 
     AffineTransform transform = new AffineTransform();
@@ -124,7 +129,7 @@ public class DynamicProcessor
     return transform.createTransformedShape(rect);
   }
 
-  public int findPoint(int xVal)
+  public int findPoint(int xVal) // y=mx+b, returns the y counterpart of the coordinate on the inclined surface
   {
     return (int)(((Window.h-y)/(double)Window.w) * xVal) + y;
   }
@@ -134,7 +139,6 @@ public class DynamicProcessor
     setIncline();
     obj.x = Window.w/2;
     obj.y = findPoint(Window.w/2);
-    // System.out.println(obj.x + " " + obj.y);
   }
 
   public void update()
@@ -143,8 +147,9 @@ public class DynamicProcessor
     this.mouseY = Window.y;
 
     obj.update();
-    obj.updateMass(sliders[0].value);
-    obj.updateFapp(sliders[2].value);
+
+    if (sliders[0].value != obj.mass)
+      obj.updateMass(sliders[0].value);
 
     if (sliders[1].value != obj.angle)
     {
@@ -153,25 +158,25 @@ public class DynamicProcessor
 
       obj.y = findPoint(obj.x);
     }
-    // System.out.println(obj.Ffric > obj.Fgrav * Math.sin(obj.angle) + obj.Fapp);
 
+    if (sliders[2].value != obj.Fapp)
+    obj.updateFapp(sliders[2].value);
 }
 
   public void mouseClicked()
   {
-
   }
 
   public void mousePressed()
   {
+    System.out.println(obj);
     obj.isDragging = true;
-    // System.out.println("pressed");
   }
 
   public void mouseReleased()
   {
     obj.isDragging = false;
-    // System.out.println("released");
+
     obj.x = Window.x;
     obj.y = findPoint(Window.x);
     obj.vel = 0;
@@ -191,7 +196,6 @@ public class DynamicProcessor
           value = slider.getValue();
         }
       });
-      // slider.setBounds(0,100,200,120);
     }
     public JSlider getSlider()
     {

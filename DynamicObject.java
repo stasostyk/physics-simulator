@@ -1,6 +1,6 @@
 public class DynamicObject
 {
-  public static double g = 2;
+  public static double g = 9.81;
   public double mass, angle, muS, muK; // mass, angle, static coefficient of friction, kinetic coefficient of friction
   public double Fapp, Fnorm, Fgrav, Ffric; // applied, normal, gravitational, and friction force
   public double vel, accel;
@@ -8,9 +8,7 @@ public class DynamicObject
 
   public boolean isDragging = false;
 
-  private DynamicProcessor proc;
-
-  public DynamicObject(DynamicProcessor proc, double m, double a, double muS, double muK, double Fapp)
+  public DynamicObject(double m, double a, double muS, double muK, double Fapp)
   {
     this.mass = m;
     this.angle = Math.toRadians(a);
@@ -18,8 +16,6 @@ public class DynamicObject
     this.muK = muK;
     this.Fapp = Fapp;
     this.vel = 0;
-
-    this.proc = proc;
 
     System.out.println("mass = " + mass + ", angle = " + angle);
 
@@ -48,14 +44,23 @@ public class DynamicObject
 
   public double getFriction()
   {
+
+    if (Fnorm * muS > Fapp + Fgrav * Math.sin(angle))
+      return -Fgrav*Math.sin(angle);
+
+    int direction = -1; // +1 or -1
+    if (Fapp < 0)
+      if (accel < 0 && (Fapp + Fgrav*Math.sin(angle)) < 0)
+        direction = 1;
+
     if (Fgrav*Math.sin(angle) + Fapp > muS * Fnorm) // its moving
-      return muK * Fnorm;
-    return muS * Fnorm; // its not moving
+      return muK * Fnorm * direction;
+    return muS * Fnorm * direction; // its not moving
   }
 
   public double getAccel()
   {
-    if (Fgrav*Math.sin(angle) + Fapp <= muS * Fnorm) return 0;
+    // if (Fgrav*Math.sin(angle) + Fapp <= muS * Fnorm) return 0;
     return (Fapp + Fgrav*Math.sin(angle) + Ffric) / mass;   // Fnet = m * a
   }
 
@@ -64,7 +69,6 @@ public class DynamicObject
     this.Ffric = getFriction();
     vel += 0.5*accel;
     move();
-    // System.out.println(accel);
   }
 
   public void updateFapp(double newFapp)
@@ -96,13 +100,13 @@ public class DynamicObject
 
   public void move()
   {
-    this.x += 0.01 * vel * Math.sin(angle);
-    this.y += 0.01 * vel * Math.cos(angle);
+    this.x += 0.1 * vel * Math.sin(angle);
+    this.y += 0.1 * vel * Math.cos(angle);
   }
 
   public String toString()
   {
-    return "Fg: " + Fgrav + ", Fapp: " + Fapp + ", Fnorm: " + Fnorm + ", Ffric: " + Ffric;
+    return "Fg: " + Fgrav + ", Fapp: " + Fapp + ", Fnorm: " + Fnorm + ", Ffric: " + Ffric + ", Accel = " + accel;
   }
 
 }
