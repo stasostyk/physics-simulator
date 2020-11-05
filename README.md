@@ -18,7 +18,7 @@ I found objects on inclines to be the most interesting application of my unit on
 * To respawn and reset the object, click your mouse and let go where you want it to restart. The red lines will help you navigate.
 
 ## Compiling and Running
-To see these simulations on your own, follow the following steps.
+To see these simulations on your own, either run the executable .jar file in the build folder or follow the following steps.
 1. Download a Java SDK and add it to your system PATH
 2. In your terminal or CMD, navigate to the directory in which you have downloaded this project.
 3. Then run:
