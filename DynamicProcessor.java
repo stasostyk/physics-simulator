@@ -37,8 +37,8 @@ public class DynamicProcessor
     this.win = win;
     obj = new DynamicObject(10,25,0.5,0.4,0); // mass, angle, muS, muK, Fapp
 
-    sliders = new Slider[] {new Slider(1, 40, 10), new Slider(5,45,25), new Slider(-300,300,0)};
-    sliders[0].value = 10;
+    sliders = new Slider[] {new Slider(1, 40, 20), new Slider(5,45,25), new Slider(-300,300,0)};
+    sliders[0].value = 20;
     sliders[1].value = 25;
     sliders[2].value = 0;
   }

@@ -44,18 +44,18 @@ public class DynamicObject
 
   public double getFriction()
   {
-
-    if (Fnorm * muS > Fapp + Fgrav * Math.sin(angle))
-      return -Fgrav*Math.sin(angle);
+    if (Fapp + Fgrav * Math.sin(angle) >= -Fnorm * muS && Fnorm * muS >= Fapp + Fgrav * Math.sin(angle)) // is not moving
+    {
+      System.out.println("FPSDJFOP");
+      return -Fgrav*Math.sin(angle) - Fapp;
+    }
 
     int direction = -1; // +1 or -1
     if (Fapp < 0)
       if (accel < 0 && (Fapp + Fgrav*Math.sin(angle)) < 0)
         direction = 1;
 
-    if (Fgrav*Math.sin(angle) + Fapp > muS * Fnorm) // its moving
-      return muK * Fnorm * direction;
-    return muS * Fnorm * direction; // its not moving
+    return muK * Fnorm * direction;
   }
 
   public double getAccel()
@@ -67,13 +67,15 @@ public class DynamicObject
   public void update()
   {
     this.Ffric = getFriction();
-    vel += 0.5*accel;
+    this.vel += accel;
+    System.out.println(accel);
     move();
   }
 
   public void updateFapp(double newFapp)
   {
     this.Fapp = newFapp;
+    this.Ffric = getFriction();
     this.accel = getAccel();
   }
 
