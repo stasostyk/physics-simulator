@@ -46,7 +46,6 @@ public class DynamicObject
   {
     if (Fapp + Fgrav * Math.sin(angle) >= -Fnorm * muS && Fnorm * muS >= Fapp + Fgrav * Math.sin(angle)) // is not moving
     {
-      System.out.println("FPSDJFOP");
       return -Fgrav*Math.sin(angle) - Fapp;
     }
 
@@ -68,7 +67,6 @@ public class DynamicObject
   {
     this.Ffric = getFriction();
     this.vel += accel;
-    System.out.println(accel);
     move();
   }
 

@@ -182,6 +182,17 @@ public class Window extends JPanel
           this.updateUI();
         }
       }
+      return;
+    }
+
+    if (e.getKeyCode() == e.VK_ESCAPE)
+    {
+      mode = 0;
+      for (int i = 0; i < dyna.sliders.length; i++)
+      {
+        this.remove(dyna.sliders[i].getSlider());
+      }
+      this.updateUI();
     }
   }
 

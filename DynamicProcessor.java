@@ -169,7 +169,6 @@ public class DynamicProcessor
 
   public void mousePressed()
   {
-    System.out.println(obj);
     obj.isDragging = true;
   }
 
@@ -189,6 +188,7 @@ public class DynamicProcessor
     public Slider(int min, int max, int init)
     {
       slider = new JSlider(JSlider.VERTICAL, min, max, init);
+      slider.setFocusable(false);
       slider.addChangeListener(new ChangeListener()
       {
         public void stateChanged(ChangeEvent e)
