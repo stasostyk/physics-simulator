@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.KeyListener;
@@ -21,11 +23,13 @@ public class Window extends JPanel
   private int time;
   private Font font = new Font("TimesRoman", Font.PLAIN, 20);
 
+  // seting up different modes
   private KinematicProcessor kine = new KinematicProcessor();
-
   private DynamicProcessor dyna = new DynamicProcessor(this); // pass this to allow use of JSlider
+  private AtwoodProcessor atw = new AtwoodProcessor(this);
 
-  private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics
+
+  private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics, 3 = atwood
 
   public static int w, h = 500; // default
 
@@ -53,8 +57,8 @@ public class Window extends JPanel
         g.fillRect((w/2)-100,(h/2)-50,200,30);
         g.fillRect((w/2)-100,(h/2)-10,200,30);
         g.setColor(Color.BLACK);
-        g.drawString("For kinematics, press 1", (w/2)-90, (h/2)-30);
-        g.drawString("For dynamics, press 2", (w/2)-90, (h/2)+10);
+        g.drawString("Kinematics: press 1", (w/2)-90, (h/2)-30);
+        g.drawString("Inclined planes: press 2", (w/2)-90, (h/2)+10);
         break;
       }
 
@@ -67,6 +71,11 @@ public class Window extends JPanel
       case (2):
       {
         dyna.draw(g);
+        break;
+      }
+      case (3):
+      {
+        atw.draw(g);
         break;
       }
     }
@@ -95,6 +104,11 @@ public class Window extends JPanel
       case (2):
       {
         dyna.update();
+        break;
+      }
+      case (3):
+      {
+        atw.update();
         break;
       }
     }
@@ -173,11 +187,21 @@ public class Window extends JPanel
         if (e.getKeyCode() == e.VK_1) this.mode = 1;
         else if (e.getKeyCode() == e.VK_2)
         {
+          this.setLayout(new FlowLayout());
           dyna.setup();
           this.mode = 2;
           for (int i = 0; i < dyna.sliders.length; i++)
           {
             this.add(dyna.sliders[i].getSlider());
+          }
+          this.updateUI();
+        } else if (e.getKeyCode() == e.VK_3)
+        {
+          this.mode = 3;
+          this.setLayout(new FlowLayout(FlowLayout.LEFT));
+          for (int i = 0; i < atw.sliders.length; i++)
+          {
+            this.add(atw.sliders[i].getSlider());
           }
           this.updateUI();
         }
@@ -191,6 +215,10 @@ public class Window extends JPanel
       for (int i = 0; i < dyna.sliders.length; i++)
       {
         this.remove(dyna.sliders[i].getSlider());
+      }
+      for (int i = 0; i < atw.sliders.length; i++)
+      {
+        this.remove(atw.sliders[i].getSlider());
       }
       this.updateUI();
     }
