@@ -1,15 +1,21 @@
 public class AtwoodMachine
 {
-  public static double g = 9.81;
+  public static double g = 0.5;
 
-  private double tens, accel, vel; // force of tension and acceleration, both are shared among two obj
+  public double tens, accel, vel; // force of tension and acceleration, both are shared among two obj
   // in this simulation, the pulley is frictionless and massless
+
+  public int disp = 0; // displacement of weight from OG position
 
   Weight one; // heavier one
   Weight two;
 
+  public int direction;
+
   public AtwoodMachine(int m1, int m2)
   {
+    direction = 1;
+
     if (m1 >= m2)
     {
       one = new Weight(m1, -1);
@@ -28,6 +34,7 @@ public class AtwoodMachine
   public void update()
   {
     vel += accel;
+    disp += vel;
   }
 
   public double findAccel(Weight one, Weight two) // assumes one as the heavier object
@@ -36,7 +43,7 @@ public class AtwoodMachine
     // T = mg + ma, T = Mg - Ma (where M is the mass of the heavier object)
     // then substitute to solve for acceleration
 
-    return acc;
+    return acc * direction;
   }
 
   public double findTension(Weight w)
@@ -56,5 +63,26 @@ public class AtwoodMachine
       this.dir = d;
     }
 
+  }
+
+  public void updateMass(int m1, int m2)
+  {
+    if (m1 >= m2)
+    {
+      one = new Weight(m1, -1);
+      two = new Weight(m2, 1);
+    } else
+    {
+      one = new Weight(m2, -1);
+      two = new Weight(m1, 1);
+    }
+
+    this.accel = findAccel(one, two);
+    this.tens = findTension(one); // both one and two SHOULD return the same value
+  }
+
+  public String toString()
+  {
+    return "a -> " + accel + ", v -> " + vel + ", d -> " + disp;
   }
 }
