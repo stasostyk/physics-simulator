@@ -57,7 +57,7 @@ public class AtwoodProcessor
     g.drawString("m2 = " + sliders[1].value + " Kg", 10, 250);
 
     String rounded;
-    rounded = String.format("%.1f", mach.accel);
+    rounded = String.format("%.3f", mach.accel);
     g.drawString("a = " + rounded + "ms^-2", 10, 270);
 
     rounded = String.format("%.1f", mach.vel);
@@ -71,7 +71,7 @@ public class AtwoodProcessor
     g.drawLine(cX-30, 300+(int)mach.disp+25, cX-10, 300+(int)mach.disp+25);
     g.drawLine(cX-20, 300+(int)mach.disp+25, cX-20, Window.h-10);
     g.drawLine(cX-30, Window.h-10, cX-10, Window.h-10);
-    int PEg = (int)(sliders[0].value * (Window.h-10-300+(int)mach.disp+25) * AtwoodMachine.g);
+    int PEg = (int)(sliders[0].value * (Window.h-10-(300+(int)mach.disp)) * AtwoodMachine.g);
     g.drawString("PEg = " + PEg + " J", cX-10, 300+(int)mach.disp+45);
 
   }
