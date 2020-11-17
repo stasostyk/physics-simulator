@@ -34,7 +34,7 @@ public class AtwoodProcessor
 
   public void draw(Graphics g)
   {
-    int cX = Window.w/2;
+    int cX = Window.w/2 + 50;
     int cY = Window.h/2;
 
     g.setColor(Color.BLACK);
@@ -51,6 +51,29 @@ public class AtwoodProcessor
     g.drawRect(cX-30, 300+(int)mach.disp, 20,20);
     g.drawRect(cX+10, 300-(int)mach.disp, 20,20);
     // System.out.println(mach);
+
+    g.setColor(Color.BLUE);
+    g.drawString("m1 = " + sliders[0].value + " Kg", 10, 230);
+    g.drawString("m2 = " + sliders[1].value + " Kg", 10, 250);
+
+    String rounded;
+    rounded = String.format("%.1f", mach.accel);
+    g.drawString("a = " + rounded + "ms^-2", 10, 270);
+
+    rounded = String.format("%.1f", mach.vel);
+    g.drawString("vel = " + rounded + "ms^-1", 10, 290);
+
+    g.drawString("delta x = " + mach.disp + " m", 10, 310);
+    g.drawString("g = " + AtwoodMachine.g + " ms^-2", 10, 330);
+
+    // left line for PEg
+    g.setColor(Color.BLACK);
+    g.drawLine(cX-30, 300+(int)mach.disp+25, cX-10, 300+(int)mach.disp+25);
+    g.drawLine(cX-20, 300+(int)mach.disp+25, cX-20, Window.h-10);
+    g.drawLine(cX-30, Window.h-10, cX-10, Window.h-10);
+    int PEg = (int)(sliders[0].value * (Window.h-10-300+(int)mach.disp+25) * AtwoodMachine.g);
+    g.drawString("PEg = " + PEg + " J", cX-10, 300+(int)mach.disp+45);
+
   }
 
   public void update()
@@ -70,13 +93,13 @@ public class AtwoodProcessor
     prevMass2 = sliders[1].value;
 
     mach.update();
-    if (Math.abs(mach.disp) >= 150)
+    if (Math.abs(mach.disp) >= 180)
     {
       mach.vel = 0;
       if (mach.disp < 0)
-        mach.disp = -150;
+        mach.disp = -180;
       else
-        mach.disp = 150;
+        mach.disp = 180;
     }
   }
 
