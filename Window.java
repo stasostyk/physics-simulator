@@ -56,9 +56,11 @@ public class Window extends JPanel
         g.setColor(Color.GRAY);
         g.fillRect((w/2)-100,(h/2)-50,200,30);
         g.fillRect((w/2)-100,(h/2)-10,200,30);
+        g.fillRect((w/2)-100,(h/2)+30,200,30);
         g.setColor(Color.BLACK);
         g.drawString("Kinematics: press 1", (w/2)-90, (h/2)-30);
         g.drawString("Inclined planes: press 2", (w/2)-90, (h/2)+10);
+        g.drawString("Atwood +: press 3", (w/2)-90, (h/2)+50);
         break;
       }
 
