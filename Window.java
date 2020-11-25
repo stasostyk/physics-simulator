@@ -27,6 +27,7 @@ public class Window extends JPanel
   private KinematicProcessor kine = new KinematicProcessor();
   private DynamicProcessor dyna = new DynamicProcessor(this); // pass this to allow use of JSlider
   private AtwoodProcessor atw = new AtwoodProcessor(this);
+  private SpringProcessor spr = new SpringProcessor();
 
 
   private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics, 3 = atwood
@@ -57,10 +58,12 @@ public class Window extends JPanel
         g.fillRect((w/2)-100,(h/2)-50,200,30);
         g.fillRect((w/2)-100,(h/2)-10,200,30);
         g.fillRect((w/2)-100,(h/2)+30,200,30);
+        g.fillRect((w/2)-100,(h/2)+70,200,30);
         g.setColor(Color.BLACK);
         g.drawString("Kinematics: press 1", (w/2)-90, (h/2)-30);
         g.drawString("Inclined planes: press 2", (w/2)-90, (h/2)+10);
         g.drawString("Atwood +: press 3", (w/2)-90, (h/2)+50);
+        g.drawString("Spring +: press 4", (w/2)-90, (h/2)+90);
         break;
       }
 
@@ -78,6 +81,11 @@ public class Window extends JPanel
       case (3):
       {
         atw.draw(g);
+        break;
+      }
+      case (4):
+      {
+        spr.draw(g);
         break;
       }
     }
@@ -111,6 +119,11 @@ public class Window extends JPanel
       case (3):
       {
         atw.update();
+        break;
+      }
+      case (4):
+      {
+        spr.update();
         break;
       }
     }
@@ -206,6 +219,9 @@ public class Window extends JPanel
             this.add(atw.sliders[i].getSlider());
           }
           this.updateUI();
+        } else if (e.getKeyCode() == e.VK_4)
+        {
+          this.mode = 4;
         }
       }
       return;
