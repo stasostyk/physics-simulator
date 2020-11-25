@@ -1,6 +1,7 @@
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 public class Main
 {
@@ -25,5 +26,11 @@ public class Main
     w.setVisible(true);
     w.setLocationRelativeTo(null);
     w.setFocusable(true);
+
+    try {
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
   }
 }
