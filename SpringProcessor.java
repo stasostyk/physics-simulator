@@ -19,7 +19,7 @@ import java.awt.geom.Rectangle2D;
 
 public class SpringProcessor
 {
-  private final double g = 1;
+  private final double g = 1.5;
   private double SprConst;
   private int len, mass;
   private int compression = 0;
@@ -31,7 +31,7 @@ public class SpringProcessor
   public SpringProcessor()
   {
     b = new Ball(10);
-    SprConst = 1; // N/m
+    SprConst = 1.3; // N/m
   }
 
   public void draw(Graphics g)
@@ -55,7 +55,7 @@ public class SpringProcessor
 
   public void update()
   {
-    int y = 100 + b.disp;
+    int y = (int)(100 + b.disp + b.vel + 0.5);
     int top = 500 - (500-200-4*compression);
     if (y > top)
     {
@@ -86,12 +86,12 @@ public class SpringProcessor
       if (isTouching)
       {
         // Fs = -k * x
-        double Fs = -SprConst*Math.abs(compression);
+        double Fs = -SprConst*Math.abs(compression*10);
         double Fg = b.mass * g;
         // Fs + Fg = m * a --> a = Fnet/m
-        double res = (Fg-Fs)/b.mass;
-        vel -= res;
-        System.out.println(vel);
+        double res = (Fg+Fs)/b.mass;
+        vel += res;
+        System.out.println(res);
       } else
       {
         vel += g;
