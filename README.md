@@ -1,7 +1,7 @@
 # Physics Simulator
 A physics simulator, with various modes to play around with. This project serves as a method for me to apply and revise my knowledge from IB Physics HL.
  * [Kinematics](#kinematics)
- * [Inclined Dynamcics](#inclined)
+ * [Inclined Dynamcics](#incline)
  * [Atwood's Machine](#atwood)
  * [Ideal Gas (Isothermal Process)](#ideal-gas)
 
