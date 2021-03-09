@@ -1,6 +1,10 @@
 # Physics Simulator
 A physics simulator, with various modes to play around with. This project serves as a method for me to apply and revise my knowledge from IB Physics HL.
-
+ * [Kinematics](#kinematics mode)
+ * [Inclined Dynamcics](#inclined surface mode)
+ * [Atwood's Machine](#atwood's machine plus)
+ * [Ideal Gas](#ideal gas piston)
+ 
 ## Kinematics Mode
 From my physics unit on kinematics in two dimensions, the mode simulates bouncing balls affected by everyday forces, neglecting air resistance.
 
@@ -24,8 +28,8 @@ When learning about more complex mechanics with work, energy, and pulleys, I fou
 * Change the slider values to change the mass of either the left or right mass.
 * Pay attention to the change values, such as the potential gravitational energy.
 
-## Ideal Gas Piston (Isothermal process)
-As we finish the thermodynamics unit in class, this simulation is what I found to be most interesting from the new topics. An ideal gas has magnificent properties, some of which I try to model. Marbles on the container push it down, causing a change in volume and pressure (temperature remains constant).
+## Ideal Gas Piston
+As we finish the thermodynamics unit in class, this simulation is what I found to be most interesting from the new topics. An ideal gas has magnificent properties, some of which I try to model. Marbles on the container push it down, causing a change in volume and pressure (temperature remains constant, making it an isothermal process).
 
 ![Ideal Gas Demo](images/idealgas_demo.jpg?raw=true "Ideal Gas Demo")
 * Left click over the container (any height above the green bar)
