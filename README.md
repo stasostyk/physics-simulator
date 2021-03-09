@@ -24,13 +24,23 @@ When learning about more complex mechanics with work, energy, and pulleys, I fou
 * Change the slider values to change the mass of either the left or right mass.
 * Pay attention to the change values, such as the potential gravitational energy.
 
+## Ideal Gas Piston (Isothermal process)
+As we finish the thermodynamics unit in class, this simulation is what I found to be most interesting from the new topics. An ideal gas has magnificent properties, some of which I try to model. Marbles on the container push it down, causing a change in volume and pressure (temperature remains constant).
+
+![Ideal Gas Demo](images/idealgas_demo.jpg?raw=true "Ideal Gas Demo")
+* Left click over the container (any height above the green bar)
+* This dropped a 50kg marble (heavy, I know)!
+* Keep spawning more weights and observe the change in state variables as well as visual graphics.
+* State variables are represented in the drawing, but for obvious reasons the number of molecules in the drawing is generalized to 30.
+
 
 ## Compiling and Running
 To see these simulations on your own, either run the executable .jar file in the build folder or follow the following steps.
 1. Download a Java SDK and add it to your system PATH
-2. In your terminal or CMD, navigate to the directory in which you have downloaded this project.
+2. In your terminal or CMD, navigate to the folder in which you have downloaded this project, then into 'build'.
 3. Then run:
 ```
-$ javac *.java
 $ java Main
 ```
+
+Alternatively, double click on 'physics-simulator.jar' in the 'builds' folder to run it!

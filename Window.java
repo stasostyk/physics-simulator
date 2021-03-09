@@ -27,10 +27,10 @@ public class Window extends JPanel
   private KinematicProcessor kine = new KinematicProcessor();
   private DynamicProcessor dyna = new DynamicProcessor(this); // pass this to allow use of JSlider
   private AtwoodProcessor atw = new AtwoodProcessor(this);
-  private SpringProcessor spr = new SpringProcessor();
+  private IdealGasProcessor idealgas = new IdealGasProcessor();
 
 
-  private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics, 3 = atwood
+  private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics, 3 = atwood, 4 = ideal gas
 
   public static int w, h = 500; // default
 
@@ -63,7 +63,7 @@ public class Window extends JPanel
         g.drawString("Kinematics: press 1", (w/2)-90, (h/2)-30);
         g.drawString("Inclined planes: press 2", (w/2)-90, (h/2)+10);
         g.drawString("Atwood +: press 3", (w/2)-90, (h/2)+50);
-        g.drawString("Spring +: press 4", (w/2)-90, (h/2)+90);
+        g.drawString("Ideal gas: press 4", (w/2)-90, (h/2)+90);
         break;
       }
 
@@ -85,7 +85,7 @@ public class Window extends JPanel
       }
       case (4):
       {
-        spr.draw(g);
+        idealgas.draw(g);
         break;
       }
     }
@@ -123,7 +123,7 @@ public class Window extends JPanel
       }
       case (4):
       {
-        spr.update();
+        idealgas.update();
         break;
       }
     }
@@ -142,6 +142,11 @@ public class Window extends JPanel
       case(1):
       {
         kine.mouseClicked();
+        break;
+      }
+      case(4):
+      {
+        idealgas.mouseClicked();
         break;
       }
     }
@@ -171,6 +176,11 @@ public class Window extends JPanel
         dyna.mousePressed();
         break;
       }
+      case (4):
+      {
+        idealgas.mousePressed();
+        break;
+      }
     }
   }
 
@@ -187,6 +197,11 @@ public class Window extends JPanel
       case (2):
       {
         dyna.mouseReleased();
+        break;
+      }
+      case (4):
+      {
+        idealgas.mouseReleased();
         break;
       }
     }
