@@ -1,11 +1,11 @@
 # Physics Simulator
 A physics simulator, with various modes to play around with. This project serves as a method for me to apply and revise my knowledge from IB Physics HL.
- * [Kinematics](#kinematics mode)
- * [Inclined Dynamcics](#inclined surface mode)
- * [Atwood's Machine](#atwood's machine plus)
- * [Ideal Gas](#ideal gas piston)
- 
-## Kinematics Mode
+ * [Kinematics](#kinematics)
+ * [Inclined Dynamcics](#inclined)
+ * [Atwood's Machine](#atwood)
+ * [Ideal Gas (Isothermal Process)](#ideal-gas)
+
+# Kinematics
 From my physics unit on kinematics in two dimensions, the mode simulates bouncing balls affected by everyday forces, neglecting air resistance.
 
 ![Kinematics Demo](images/kinematics_demo.png?raw=true "Kinematics Demo")
@@ -13,7 +13,7 @@ From my physics unit on kinematics in two dimensions, the mode simulates bouncin
 * To give it an initial velocity, when you click your mouse, drag it in a direction. The magnitude of your mouse displacement, alongside the angle will give the ball component vectors.
 * Note: There are many bugs, such as the "infinite bounce" glitch which you will definitely notice. Well, that's now a feature!
 
-## Inclided Surface Mode
+# Incline
 I found objects on inclines to be the most interesting application of my unit on dynamics, which is why I made this simulation. It lets you observe the various forces acting to accelerate an object on an inclined surface.
 
 ![Dynamics Demo](images/dynamics_demo.png?raw=true "Dynamics Demo")
@@ -21,14 +21,14 @@ I found objects on inclines to be the most interesting application of my unit on
 * Observe the object either rest, or accelerate up/down. Note: sometimes it will stay still for a second then move. This is intentional, as in reality the object would be moving, but the screen has too little pixels to capture this motion at first.
 * To respawn and reset the object, click your mouse and let go where you want it to restart. The red lines will help you navigate.
 
-## Atwood's Machine Plus
+## Atwood
 When learning about more complex mechanics with work, energy, and pulleys, I found the Atwood machine to be the most interesting. I tried connecting these topics together into the atwood pulley.
 
 ![Atwood Demo](images/atwood_demo.png?raw=true "Atwood Demo")
 * Change the slider values to change the mass of either the left or right mass.
 * Pay attention to the change values, such as the potential gravitational energy.
 
-## Ideal Gas Piston
+## Ideal-gas
 As we finish the thermodynamics unit in class, this simulation is what I found to be most interesting from the new topics. An ideal gas has magnificent properties, some of which I try to model. Marbles on the container push it down, causing a change in volume and pressure (temperature remains constant, making it an isothermal process).
 
 ![Ideal Gas Demo](images/idealgas_demo.jpg?raw=true "Ideal Gas Demo")
