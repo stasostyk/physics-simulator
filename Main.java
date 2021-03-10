@@ -2,6 +2,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import Engine.Window;
 
 public class Main
 {
@@ -13,7 +14,7 @@ public class Main
     w.setSize(500, 500);
 
     Container c = w.getContentPane();
-    Window screen = new Window();
+    Window screen = new Window(w);
     c.add(screen);
     c.setPreferredSize(new Dimension(500,500));
     w.pack();
