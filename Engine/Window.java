@@ -31,6 +31,7 @@ public class Window extends JPanel
   private DynamicProcessor dyna = new DynamicProcessor(this); // pass this to allow use of JSlider
   private AtwoodProcessor atw = new AtwoodProcessor(this);
   private IdealGasProcessor idealgas = new IdealGasProcessor();
+  private CalorimetryProcessor calo = new CalorimetryProcessor();
 
 
   private int mode = 0; // 0 = menu, 1 = kinematics, 2 = dynamics, 3 = atwood, 4 = ideal gas
@@ -66,11 +67,13 @@ public class Window extends JPanel
         g.fillRect((w/2)-100,(h/2)-10,200,30);
         g.fillRect((w/2)-100,(h/2)+30,200,30);
         g.fillRect((w/2)-100,(h/2)+70,200,30);
+        g.fillRect((w/2)-100, (h/2)+110, 200, 30);
         g.setColor(Color.BLACK);
         g.drawString("Kinematics: press 1", (w/2)-90, (h/2)-30);
         g.drawString("Inclined planes: press 2", (w/2)-90, (h/2)+10);
         g.drawString("Atwood +: press 3", (w/2)-90, (h/2)+50);
         g.drawString("Ideal gas: press 4", (w/2)-90, (h/2)+90);
+        g.drawString("Calorimetry: press 5", (w/2)-90, (h/2)+130);
         break;
       }
 
@@ -93,6 +96,11 @@ public class Window extends JPanel
       case (4):
       {
         idealgas.draw(g);
+        break;
+      }
+      case (5):
+      {
+        calo.draw(g);
         break;
       }
     }
@@ -131,6 +139,11 @@ public class Window extends JPanel
       case (4):
       {
         idealgas.update();
+        break;
+      }
+      case (5):
+      {
+        calo.update();
         break;
       }
     }
@@ -188,6 +201,11 @@ public class Window extends JPanel
         idealgas.mousePressed();
         break;
       }
+      case (5):
+      {
+        calo.mousePressed();
+        break;
+      }
     }
   }
 
@@ -209,6 +227,11 @@ public class Window extends JPanel
       case (4):
       {
         idealgas.mouseReleased();
+        break;
+      }
+      case (5):
+      {
+        calo.mouseReleased();
         break;
       }
     }
@@ -244,6 +267,9 @@ public class Window extends JPanel
         } else if (e.getKeyCode() == e.VK_4)
         {
           this.mode = 4;
+        } else if (e.getKeyCode() == e.VK_5)
+        {
+          this.mode = 5;
         }
       }
       return;
