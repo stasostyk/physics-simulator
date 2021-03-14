@@ -19,19 +19,19 @@ public class DynamicObject
     this.Fapp = Fapp;
     this.vel = 0;
 
-    System.out.println("mass = " + mass + ", angle = " + angle);
+    // System.out.println("mass = " + mass + ", angle = " + angle);
 
 
     this.Fgrav = getFgrav();
-    System.out.println("grav: "+Fgrav);
+    // System.out.println("grav: "+Fgrav);
     this.Fnorm = getFnorm();
-    System.out.println("norm: "+Fnorm);
+    // System.out.println("norm: "+Fnorm);
 
     this.Ffric = getFriction();
-    System.out.println("fric: "+Ffric);
+    // System.out.println("fric: "+Ffric);
 
     this.accel = getAccel();
-    System.out.println("accel: "+accel);
+    // System.out.println("accel: "+accel);
   }
 
   public double getFgrav()
