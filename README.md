@@ -1,11 +1,12 @@
 # Physics Simulator
-A physics simulator, with various modes to play around with. This project serves as a method for me to apply and revise my knowledge from IB Physics HL.
+A physics simulator, with various modes to play around with. This project serves as a method for me to apply and revise my knowledge from IB Physics HL. Special thank you to Mr. Cardenas! 
  * [Kinematics](#kinematics)
  * [Inclined Dynamcics](#incline)
  * [Atwood's Machine](#atwood)
  * [Ideal Gas (Isothermal Process)](#ideal-gas)
+ * [Calorimeter](#Calorimeter)
 
-# Kinematics
+## Kinematics
 From my physics unit on kinematics in two dimensions, the mode simulates bouncing balls affected by everyday forces, neglecting air resistance.
 
 ![Kinematics Demo](images/kinematics_demo.png?raw=true "Kinematics Demo")
@@ -13,7 +14,7 @@ From my physics unit on kinematics in two dimensions, the mode simulates bouncin
 * To give it an initial velocity, when you click your mouse, drag it in a direction. The magnitude of your mouse displacement, alongside the angle will give the ball component vectors.
 * Note: There are many bugs, such as the "infinite bounce" glitch which you will definitely notice. Well, that's now a feature!
 
-# Incline
+## Incline
 I found objects on inclines to be the most interesting application of my unit on dynamics, which is why I made this simulation. It lets you observe the various forces acting to accelerate an object on an inclined surface.
 
 ![Dynamics Demo](images/dynamics_demo.png?raw=true "Dynamics Demo")
@@ -37,13 +38,21 @@ As we finish the thermodynamics unit in class, this simulation is what I found t
 * Keep spawning more weights and observe the change in state variables as well as visual graphics.
 * State variables are represented in the drawing, but for obvious reasons the number of molecules in the drawing is generalized to 30.
 
+## Calorimeter
+Thermodynamics were simple yet intriguing. Calorimetry in particular seemed really mundane to calculate, but the results were astonishing and very applicable to the real world. Here is a water and ice calorimeter for your experimentation!
+
+![Calorimetry Demo](images/calo_demo.jpg?raw=true "Calorimetry Demo")  
+* Press your mouse anywhere on the screen to pour water from the faucet
+* Drag the ice block into the calorimeter (into the water)
+* Click begin reaction, and watch both the animation and variable changes!
 
 ## Compiling and Running
 To see these simulations on your own, either run the executable .jar file in the build folder or follow the following steps.
 1. Download a Java SDK and add it to your system PATH
-2. In your terminal or CMD, navigate to the folder in which you have downloaded this project, then into 'build'.
+2. In your terminal or CMD, navigate to the folder in which you have downloaded this project.
 3. Then run:
 ```
+$ javac *.java
 $ java Main
 ```
 
